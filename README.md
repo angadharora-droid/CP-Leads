@@ -29,7 +29,7 @@ Leads CP/
 ```bash
 cd backend
 npm install
-npm run seed     # creates demo users + sample leads
+npm run seed     # creates the admin user
 npm run dev      # http://localhost:5000
 ```
 
@@ -42,12 +42,13 @@ npm run dev      # http://localhost:5173  (proxies /api -> backend :5000)
 
 Open http://localhost:5173.
 
-## Demo credentials (from `npm run seed`)
-| Role           | Email            | Password   |
-| -------------- | ---------------- | ---------- |
-| Admin          | admin@cph.local  | Admin@123  |
-| Sales Exec     | ravi@cph.local   | Exec@123   |
-| Sales Exec     | neha@cph.local   | Exec@123   |
+## Default credentials (from `npm run seed`)
+| Role  | Email           | Password  |
+| ----- | --------------- | --------- |
+| Admin | admin@cph.local | Admin@123 |
+
+Override with `ADMIN_EMAIL`, `ADMIN_PASSWORD` (and optionally `ADMIN_NAME`) env vars
+when seeding. Sales executive accounts are created by the admin from the Users page.
 
 ## Roles
 - **admin** — sees all leads; manages users, the lead tracker, and audit logs.
