@@ -4,11 +4,28 @@ A lead-management platform for Centre Point Hospitality. Capture and track leads
 sales pipeline, manage follow-ups / action points / instructions, with role-based access,
 dashboards, and a full audit trail.
 
-> Pure lead management — no kit generation, no rate master, no PDFs, no email.
+## Kits (proposals & contracts)
+
+Each lead can have **kits** — the documents sent to a client:
+
+- **Event Kit** — generates a *Proposal* and a *Confirmation Contract* PDF (guest/function
+  info, billing, room requirements, event & meal details, session timings, estimated revenue).
+  A contract number is auto-assigned.
+- **Corporate Rate Kit** — generates the corporate room-rate agreement letter (rate tables
+  per property plus the standard terms).
+
+Flow: create the kit on the lead → fill the details → download or **email the PDF** to the
+client (SMTP must be configured, see below) → once signed, **upload the signed confirmation**
+(photos or PDF, stored in MongoDB GridFS). Uploading flips the kit to *confirmed* and the
+lead to *Contracted*.
+
+Emailing requires SMTP settings in `backend/.env` (see `backend/.env.example`):
+`SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, and optionally `SMTP_SECURE` / `MAIL_FROM`.
+For Gmail, use an [App Password](https://myaccount.google.com/apppasswords), not the account password.
 
 ## Stack
 - **Frontend:** React 18 + Vite, Tailwind CSS, ShadCN-style UI (Radix), React Hook Form + Zod, Recharts
-- **Backend:** Node.js + Express (services layer, Zod validation, Helmet, rate limiting)
+- **Backend:** Node.js + Express (services layer, Zod validation, Helmet, rate limiting), pdfmake (PDF generation), Nodemailer (email), Multer + GridFS (signed-confirmation uploads)
 - **Database:** MongoDB + Mongoose
 - **Auth:** JWT access token (15 min) + rotating refresh token (httpOnly cookie, 7 days) with reuse detection
 
